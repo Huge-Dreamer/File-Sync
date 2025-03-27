@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashSync", "src\FlashSync.csproj", "{C8B93A94-040E-4C69-8C9A-C12B7961AD0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8B93A94-040E-4C69-8C9A-C12B7961AD0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B93A94-040E-4C69-8C9A-C12B7961AD0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B93A94-040E-4C69-8C9A-C12B7961AD0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B93A94-040E-4C69-8C9A-C12B7961AD0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A2BF7BB-65B7-4F2F-8E70-C09DDBA2D7C5}
+	EndGlobalSection
+EndGlobal 

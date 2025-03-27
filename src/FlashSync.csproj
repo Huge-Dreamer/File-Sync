@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>File-Sync</AssemblyName>
+    <RootNamespace>FlashSync</RootNamespace>
+    <Authors>Huge-Dreamer</Authors>
+    <Product>File-Sync</Product>
+    <Description>A utility to synchronize files between directories</Description>
+    <Copyright>© 2024 Huge-Dreamer</Copyright>
+    <PackageProjectUrl>https://github.com/Huge-Dreamer/File-Sync</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="7.0.0" />
+  </ItemGroup>
+
+</Project> 
