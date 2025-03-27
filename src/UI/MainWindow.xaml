@@ -1,0 +1,374 @@
+<Window x:Class="FlashSync.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlashSync.UI"
+        mc:Ignorable="d"
+        Title="File-Sync" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E1E1E">
+
+    <Window.Resources>
+        <!-- Gray theme with blue hover effects -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#444444"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#444444"/>
+                    <Setter Property="BorderBrush" Value="#0078D7"/>
+                    <Setter Property="Foreground" Value="#0078D7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#444444"/>
+            <Setter Property="Foreground" Value="#0078D7"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#0078D7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#444444"/>
+            <Setter Property="Foreground" Value="#0078D7"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#555555"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#555555"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#0078D7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="#444444"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+        </Style>
+        
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+        </Style>
+        
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="#444444"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#0078D7"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Foreground" Value="#0078D7"/>
+                    <Setter Property="BorderBrush" Value="#0078D7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style TargetType="GroupBox">
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+        </Style>
+        
+        <Style TargetType="ProgressBar">
+            <Setter Property="Background" Value="#444444"/>
+            <Setter Property="Foreground" Value="#0078D7"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+        </Style>
+        
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="#444444"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#555555"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#0078D7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- ListViewItem style for hover effect -->
+        <Style TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#555555"/>
+                    <Setter Property="Foreground" Value="#0078D7"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#555555"/>
+                    <Setter Property="Foreground" Value="#0078D7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Panel -->
+        <Grid Grid.Row="0" Background="#444444">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10">
+                <TextBox x:Name="SourcePathComboBox" Width="300" Margin="0,0,10,0" IsReadOnly="True" Foreground="#0078D7" Background="#444444" BorderBrush="#555555">
+                    <TextBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="#0078D7"/>
+                    </TextBox.Resources>
+                </TextBox>
+                <Button x:Name="BrowseSourceButton" Content="Source" Click="BrowseSourceButton_Click"/>
+                <CheckBox x:Name="EnableSelectFilesCheckBox" Content="Select Files" Margin="10,0,0,0" Checked="EnableSelectFilesCheckBox_Checked" Unchecked="EnableSelectFilesCheckBox_Unchecked"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
+                <TextBox x:Name="TargetPathComboBox" Width="300" Margin="0,0,10,0" IsReadOnly="True" Foreground="#0078D7" Background="#444444" BorderBrush="#555555">
+                    <TextBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="#0078D7"/>
+                    </TextBox.Resources>
+                </TextBox>
+                <Button x:Name="BrowseTargetButton" Content="Target" Click="BrowseTargetButton_Click"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Main Content - Tabs -->
+        <TabControl Grid.Row="1" Margin="10">
+            <TabItem Header="Files">
+                <!-- Files to Sync ListView -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <ListView x:Name="FilesListView" Margin="0,10,0,0" Grid.Row="0" SelectionMode="Extended">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Status" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Status}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="File Name" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding FileName}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Size" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Size}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Modified" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ModifiedDate}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                    <!-- Selection Controls -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" x:Name="SelectionControlsPanel" Visibility="Collapsed">
+                        <Button x:Name="SelectAllButton" Content="Select All" Width="100" Margin="0,0,10,0" Click="SelectAllButton_Click"/>
+                        <Button x:Name="ClearSelectionButton" Content="Clear Selection" Width="120" Click="ClearSelectionButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Authorized Drives">
+                <!-- Authorized Drives ListView -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <ListView x:Name="DrivesListView" Grid.Row="0" Margin="0,10,0,10">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Drive Letter" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding DriveName}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Volume Label" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding VolumeLabel}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Sync Folder" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding SyncFolderPath}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Last Synced" Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding LastSyncTime, StringFormat='{}{0:g}'}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="AddDriveButton" Content="Add Current Drive" Margin="0,0,10,0" Click="AddDriveButton_Click"/>
+                        <Button x:Name="RemoveDriveButton" Content="Remove Selected" Click="RemoveDriveButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Settings">
+                <!-- Settings Panel -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10">
+                        <GroupBox Header="Sync Settings" Padding="10">
+                            <StackPanel>
+                                <CheckBox x:Name="AutoSyncCheckBox" Content="Enable automatic synchronization when authorized drives are connected" Margin="0,5,0,5"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                    <TextBlock Text="Maximum concurrent operations:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <ComboBox x:Name="MaxConcurrentComboBox" Width="100" 
+                                              SelectionChanged="MaxConcurrentComboBox_SelectionChanged">
+                                        <ComboBox.Resources>
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="#0078D7"/>
+                                        </ComboBox.Resources>
+                                        <ComboBoxItem Content="1" Foreground="#0078D7"/>
+                                        <ComboBoxItem Content="2" Foreground="#0078D7"/>
+                                        <ComboBoxItem Content="4" Foreground="#0078D7"/>
+                                        <ComboBoxItem Content="8" Foreground="#0078D7"/>
+                                        <ComboBoxItem Content="16" Foreground="#0078D7"/>
+                                        <ComboBoxItem Content="32" Foreground="#0078D7"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                <CheckBox x:Name="LargeBuffersCheckBox" Content="Use large buffers for improved performance" Margin="0,5,0,5"/>
+                            </StackPanel>
+                        </GroupBox>
+                        
+                        <GroupBox Header="Reset Options" Padding="10" Margin="0,10,0,0">
+                            <StackPanel>
+                                <Button x:Name="ClearLogsButton" Content="Clear Logs" Margin="0,5,0,5" Click="ClearLogsButton_Click" HorizontalAlignment="Left" Width="120"/>
+                                <Button x:Name="ResetAppButton" Content="Reset Application" Margin="0,5,0,5" Click="ResetAppButton_Click" HorizontalAlignment="Left" Width="120"/>
+                                <TextBlock TextWrapping="Wrap" Margin="0,10,0,0" FontStyle="Italic">
+                                    Resetting the application will clear all settings, logs, and cached data. The application will restart with default settings.
+                                </TextBlock>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+            <TabItem Header="Logs">
+                <!-- Logs Panel -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBox x:Name="LogsTextBox" Grid.Row="0" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
+                             Background="#444444" Foreground="#FFFFFF" FontFamily="Consolas" TextWrapping="Wrap"
+                             HorizontalScrollBarVisibility="Auto"/>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                        <Button x:Name="CopyLogsButton" Content="Copy Logs" Width="100" Margin="0,0,10,0" Click="CopyLogsButton_Click"/>
+                        <Button x:Name="ClearLogsTabButton" Content="Clear Logs" Width="100" Click="ClearLogsTabButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="About">
+                <!-- About Panel -->
+                <StackPanel Margin="20">
+                    <TextBlock Text="FlashSync" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
+                    <TextBlock Text="Version 1.0" Margin="0,5,0,20"/>
+                    <TextBlock TextWrapping="Wrap">
+                        FlashSync is a utility for synchronizing files between computers and external drives. 
+                        It ensures that files are never deleted during sync, but instead moved to a "!EXFILES" folder.
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap" Margin="0,20,0,0" FontWeight="Bold" Foreground="#FFFFFF">
+                        Key Features:
+                    </TextBlock>
+                    <StackPanel Margin="20,10,0,0">
+                        <TextBlock Text="• Non-destructive synchronization" Margin="0,3,0,3"/>
+                        <TextBlock Text="• Smart file comparison (dates and hashes)" Margin="0,3,0,3"/>
+                        <TextBlock Text="• Size mismatch detection with !EXSIZE folder" Margin="0,3,0,3"/>
+                        <TextBlock Text="• Multi-file selection support" Margin="0,3,0,3"/>
+                        <TextBlock Text="• Automatic drive detection and sync" Margin="0,3,0,3"/>
+                        <TextBlock Text="• Performance optimization" Margin="0,3,0,3"/>
+                        <TextBlock Text="• Version history in !EXFILES folder" Margin="0,3,0,3"/>
+                        <TextBlock Text="• Comprehensive logging" Margin="0,3,0,3"/>
+                    </StackPanel>
+                    <TextBlock Text="Built with ❤️ using C# and WPF" Margin="0,30,0,0" HorizontalAlignment="Center" Foreground="#FFFFFF"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
+        <!-- Progress Bar and Status -->
+        <Grid Grid.Row="2" Margin="10,0,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <ProgressBar x:Name="SyncProgressBar" Grid.Row="0" Height="20" Maximum="100" Value="0"/>
+            <TextBlock x:Name="StatusTextBlock" Grid.Row="1" Margin="0,5,0,0" Text="Ready"/>
+        </Grid>
+        
+        <!-- Bottom Buttons -->
+        <Grid Grid.Row="3" Background="#444444">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                <Button x:Name="ScanButton" Content="Scan" Width="100" Margin="0,0,10,0" Click="ScanButton_Click"/>
+                <Button x:Name="SyncButton" Content="Sync Now" Width="100" IsEnabled="False" Click="SyncButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window> 
